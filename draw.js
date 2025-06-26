@@ -1,58 +1,12 @@
-import groups from "./groups.js";
-localStorage.setItem("groups", JSON.stringify(groups));
-console.log(groups);
-const pots = {
-  "POT 1": [
-    "Man City",
-    "Sevilla",
-    "Barcelona",
-    "Napoli",
-    "Bayern",
-    "Paris",
-    "Benfica",
-    "Feyenoord",
-    "Liverpool",
-  ],
-  "POT 2": [
-    "Real Madrid",
-    "Man United",
-    "Internazionale",
-    "Dortmund",
-    "Atletico",
-    "Leipzig",
-    "Porto",
-    "Arsenal",
-    "Atalanta",
-  ],
-  "POT 3": [
-    "Shakhtar",
-    "Salzburg",
-    "Milan",
-    "Braga",
-    "PSV",
-    "Lazio",
-    "Crvena zvezda",
-    "Copenhagen",
-    "Marseille",
-  ],
-  "POT 4": [
-    "Young Boys",
-    "Real Sociedad",
-    "Galatasaray",
-    "Celtic",
-    "Newcastle",
-    "Union Berlin",
-    "Antwerp",
-    "Lens",
-    "Molde",
-  ],
-};
+import { drawOpponents, allTeams, pots } from "./new-format.js";
+
+let lastDrawnOpponents = null; // Store the last draw result
 
 window.addEventListener("wheel", handleScroll);
 window.addEventListener("touchmove", handleScroll);
 
 function handleScroll(event) {
-  if (event.deltaY > 0 || event.touches[0].clientY > 0) {
+  if (event.deltaY > 0 || (event.touches && event.touches[0] && event.touches[0].clientY > 0)) {
     document.getElementById("welcomeScreen").style.opacity = 0;
     setTimeout(function () {
       document.getElementById("welcomeScreen").style.display = "none";
@@ -61,7 +15,50 @@ function handleScroll(event) {
   }
 }
 
-function createTable(potName, teams) {
+document.addEventListener("DOMContentLoaded", () => {
+  const drawButton = document.getElementById("draw-button");
+  const backButton = document.getElementById("back-button");
+  const drawContainer = document.getElementById("drawContainer");
+
+  // Initial display of pots
+  for (const [potName, teams] of Object.entries(pots)) {
+    drawContainer.appendChild(createPotDisplayTable(potName, teams));
+  }
+
+  drawButton.addEventListener("click", () => {
+    const opponents = drawOpponents();
+    if (Object.keys(opponents).length > 0) {
+      lastDrawnOpponents = opponents; // Store the result
+      displayDrawnTeams(lastDrawnOpponents); // Display the drawn teams
+      drawButton.style.display = "none";
+      backButton.style.display = "inline-block";
+      drawContainer.style.display = "none"; // Hide pots after draw
+      document.getElementById("instruction-text").style.display = "block"; // Show instruction
+    }
+  });
+
+  backButton.addEventListener("click", () => {
+    if (lastDrawnOpponents) { // If a draw has happened, go back to the drawn teams list
+      displayDrawnTeams(lastDrawnOpponents);
+      drawButton.style.display = "none"; // Keep draw button hidden
+      backButton.style.display = "inline-block"; // Keep back button visible
+      drawContainer.style.display = "none"; // Keep pots hidden
+      document.getElementById("instruction-text").style.display = "block"; // Keep instruction visible
+    } else {
+      // Fallback: if no draw happened yet, go to initial team selection (shouldn't happen if back button is only shown after draw)
+      displayInitialTeamSelection();
+      drawButton.style.display = "inline-block";
+      backButton.style.display = "none";
+      drawContainer.style.display = "block";
+      document.getElementById("instruction-text").style.display = "none";
+    }
+  });
+
+  // Initial view should be the pots, not all teams as cards
+  // displayInitialTeamSelection(); // This line is removed as pots are displayed initially
+});
+
+function createPotDisplayTable(potName, teams) {
   const table = document.createElement("table");
   const tableHead = document.createElement("thead");
   const tableBody = document.createElement("tbody");
@@ -69,7 +66,7 @@ function createTable(potName, teams) {
   const headCell = document.createElement("td");
   const headSpan = document.createElement("span");
   headSpan.textContent = potName;
-  headSpan.id = `${potName.replace(/\s+/g, "-").toLowerCase()}-heading`; // id ekleyelim
+  headSpan.id = `${potName.replace(/\s+/g, "-").toLowerCase()}-heading`;
   headCell.appendChild(headSpan);
   headRow.appendChild(headCell);
   tableHead.appendChild(headRow);
@@ -102,82 +99,81 @@ function createTable(potName, teams) {
   return table;
 }
 
-const drawContainer = document.getElementById("drawContainer");
-for (const [potName, teams] of Object.entries(pots)) {
-  drawContainer.appendChild(createTable(potName, teams));
-}
+function displayInitialTeamSelection() {
+  const container = document.getElementById("drawn-teams-container");
+  container.innerHTML = ""; // Clear everything
 
-function createLeftPanelTable(teams) {
-  const table = document.createElement("table");
-  const tableBody = document.createElement("tbody");
-
-  teams.forEach((teamName) => {
-    const bodyRow = document.createElement("tr");
-    const bodyCell = document.createElement("td");
-
-    const teamContainer = document.createElement("div");
-    teamContainer.classList.add("team-container");
-
-    const img = document.createElement("img");
-    img.src = `images/${teamName.replace(/\s+/g, "_").toLowerCase()}_logo.png`;
-    img.alt = `${teamName} Logo`;
-    img.classList.add("groups-team-logo");
-    img.width = 32;
-    img.height = 25;
-
-    const teamNameSpan = document.createElement("span");
-    teamNameSpan.textContent = teamName.toUpperCase();
-    teamNameSpan.classList.add("team-name");
-    teamContainer.appendChild(img);
-    teamContainer.appendChild(teamNameSpan);
-    bodyCell.appendChild(teamContainer);
-    bodyRow.appendChild(bodyCell);
-    tableBody.appendChild(bodyRow);
+  allTeams.forEach(team => {
+    const card = createTeamCard(team);
+    container.appendChild(card);
   });
-
-  table.appendChild(tableBody);
-  return table;
-}
-const drawButton = document.getElementById("drawButton");
-drawButton.addEventListener("click", drawTeams);
-
-function drawTeams() {
-  displayGroups();
 }
 
-function displayGroups() {
-  const groupContainer = document.getElementById("groupContainer");
-  groupContainer.innerHTML = "";
-  for (let i = 0; i < groups.length; i++) {
-    const groupName = `GROUP ${i + 1}`;
-    const groupTable = createTable(groupName, groups[i]);
-    groupContainer.appendChild(groupTable);
-    displayTeams(groupTable);
+function displayDrawnTeams(opponents) {
+  const container = document.getElementById("drawn-teams-container");
+  container.innerHTML = ""; // Clear previous results
+
+  const sortedTeams = Object.keys(opponents).sort();
+
+  for (const team of sortedTeams) {
+    const card = createTeamCard(team, () => displayOpponentsForTeam(team, opponents));
+    container.appendChild(card);
   }
 }
 
-function displayTeams(table) {
-  const teams = Array.from(table.querySelectorAll("tbody tr"));
-  teams.forEach((team, index) => {
-    if (index === 0) {
-      team.style.display = "table-row";
-    } else {
-      team.style.display = "none";
-    }
+function displayOpponentsForTeam(selectedTeam, allOpponents) {
+  const container = document.getElementById("drawn-teams-container");
+  container.innerHTML = ""; // Clear the main grid
+
+  const selectedTeamContainer = document.createElement('div');
+  selectedTeamContainer.id = 'selected-team-opponents';
+  
+  const title = document.createElement("h2");
+  title.textContent = `${selectedTeam}'s Opponents`;
+  selectedTeamContainer.appendChild(title);
+
+  const selectedTeamCard = createTeamCard(selectedTeam);
+  selectedTeamCard.id = "selected-team-card";
+  selectedTeamContainer.appendChild(selectedTeamCard);
+
+  const opponentsGrid = document.createElement('div');
+  opponentsGrid.id = 'opponents-grid';
+
+  const opponents = allOpponents[selectedTeam].sort();
+
+  opponents.forEach((opponent) => {
+    const opponentCard = createTeamCard(opponent);
+    opponentsGrid.appendChild(opponentCard);
   });
-  let index = 1;
-  const interval = setInterval(() => {
-    if (index < teams.length) {
-      teams[index].style.display = "table-row";
-      index++;
-    } else {
-      clearInterval(interval);
-    }
-  }, 2000);
+
+  selectedTeamContainer.appendChild(opponentsGrid);
+  container.appendChild(selectedTeamContainer);
 }
 
-const nextButton = document.getElementById("nextButton");
+function createTeamCard(teamName, onClickHandler) {
+  const card = document.createElement("div");
+  card.className = "team-card";
+  if (onClickHandler) {
+    card.onclick = onClickHandler;
+    card.style.cursor = "pointer";
+  }
 
-nextButton.addEventListener("click", function () {
-  window.location.href = "groupstage.html";
-});
+  const logo = document.createElement("img");
+  logo.src = `images/${teamName.toLowerCase().replace(/ /g, "_")}_logo.png`;
+  logo.alt = `${teamName} Logo`;
+  logo.onerror = () => {
+    logo.src = 'images/webicon.png'; // Fallback to a default image
+    console.warn(`Logo not found for ${teamName}`);
+  };
+
+  const name = document.createElement("p");
+  name.textContent = teamName;
+
+  card.appendChild(logo);
+  card.appendChild(name);
+
+  return card;
+}
+
+
+
