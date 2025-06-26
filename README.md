@@ -1,8 +1,8 @@
-# UEFA Champions League 2024-2025 League Stage Draw Simulator
+# UEFA Champions League League Stage Draw Simulator
 
 ## Overview
 
-Welcome to the **UEFA Champions League 2024-2025 League Stage Draw Simulator**! This interactive web application provides a realistic and visually engaging simulation of the new-format UEFA Champions League league stage draw. Built with a focus on accuracy and user experience, it adheres to the latest UEFA regulations, ensuring a true-to-life simulation of team pairings.
+Welcome to the **UEFA Champions League League Stage Draw Simulator**! This interactive web application provides a realistic and visually engaging simulation of the new-format UEFA Champions League league stage draw. Built with a focus on accuracy and user experience, it adheres to the latest UEFA regulations, ensuring a true-to-life simulation of team pairings.
 
 ## Key Features
 
