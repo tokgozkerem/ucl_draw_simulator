@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Crvena zvezda",
     "PAOK",
     "Maccabi Tel Aviv",
-    "Ferencváros",
+    "Ferencvaros",
     "Young Boys",
     "Real Sociedad",
   ];
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Slovakia: ["Slovan Bratislava"],
     Greece: ["Olympiacos", "PAOK"],
     Israel: ["Maccabi Tel Aviv"],
-    Hungary: ["Ferencváros"],
+    Hungary: ["Ferencvaros"],
     Switzerland: ["Young Boys"],
   };
 
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Crvena zvezda",
       "PAOK",
       "Maccabi Tel Aviv",
-      "Ferencváros",
+      "Ferencvaros",
       "Young Boys",
       "Real Sociedad",
     ],
