@@ -1,32 +1,62 @@
-# UEFA Champions League 2025-2026 League Stage Draw Simulator
+# UEFA Champions League 2025/26 League Stage Draw Simulator
 
-## Overview
+Welcome to the **UEFA Champions League 2025–2026 Draw Simulator** — an interactive, web-based tool built to realistically simulate the **Swiss model league stage draw**. This application combines advanced logic, official UEFA regulations, and engaging visuals to deliver the most authentic Champions League draw experience available online.
 
-Welcome to the **UEFA Champions League 2025-2026 League Stage Draw Simulator**! This interactive web application provides a realistic and visually engaging simulation of the new-format UEFA Champions League league stage draw. Built with a focus on accuracy and user experience, it adheres to the latest UEFA regulations, ensuring a true-to-life simulation of team pairings.
+## ⚽ Key Features of the UEFA Champions League Draw Simulator
 
-## Key Features
+### ✅ Accurate Swiss Model Draw Logic
+Implements the official **Swiss-system draw rules** introduced in the UEFA Champions League 2024/25 season. Ensures:
+- **Country protection** (no two clubs from the same association)
+- Balanced **opponent distribution** from different seeding pots
+- Compliance with **real UEFA restrictions**
 
-*   **Accurate Draw Logic:** Implements the complex rules of the new UEFA Champions League league stage format, ensuring country protection and balanced opponent distribution across pots.
-*   **Interactive & Visually Stunning UI:** Experience a modern, card-based interface with sleek animations and a Champions League-inspired aesthetic.
-*   **Dynamic Opponent Viewing:** After the draw, click on any team's card to reveal its 8 unique opponents in a beautifully designed, shareable display.
-*   **Seamless Navigation:** Easily switch between the full list of drawn teams and individual team opponent views with intuitive "Draw!" and "Back" buttons.
-*   **Responsive Design:** Optimized for various screen sizes, ensuring a consistent and enjoyable experience across devices.
+### 🎨 Interactive & Visually Stunning UI
+Modern, card-based design inspired by the Champions League identity. Features include:
+- Glassmorphism effects
+- Team logos and colors
+- Hover and click interactions
 
-## How to Use
+### 🔍 Team-Specific Opponent Viewing
+After the simulation:
+- Click any team to view its **8 unique opponents**
+- Each matchup is displayed in a clean, shareable layout
 
-1.  **Access the Simulator:** Open `index.html` in your web browser.
-2.  **Welcome Screen:** Scroll down to proceed from the animated welcome screen.
-3.  **Initiate Draw:** Click the "Draw!" button to simulate the league stage draw.
-4.  **View Opponents:** Once the draw is complete, click on any team's logo/card to see its specific set of 8 opponents.
-5.  **Navigate Back:** Use the "Back" button to return to the full list of drawn teams, allowing you to explore other team pairings without re-drawing.
-6.  **New Draw:** Click "Draw!" again to run a completely new simulation.
+### 🧭 Seamless User Navigation
+- Scroll through the welcome animation  
+- Click “**Draw!**” to initiate simulation  
+- Use the “**Back**” button to explore more teams  
+- Redraw anytime for a new simulation
 
-## Technologies Used
+---
 
-*   **HTML5:** For structuring the web content.
-*   **CSS3:** For styling, animations, and creating the visually rich user interface, including responsive design and modern effects like glassmorphism.
-*   **JavaScript (ES6+):** Powers the core draw logic, UI interactivity, and dynamic content generation.
+## 💡 How to Use the Simulator
 
-## About the Author
+1. **Open `index.html`** in your preferred web browser.
+2. **Scroll past the animated welcome screen**.
+3. Click the **“Draw!”** button to start the UEFA league stage simulation.
+4. **Explore team pairings** by clicking on team cards.
+5. Return using the **“Back”** button or start a new draw at any time.
 
-This project was created by Kerem Tokgöz as a personal endeavor to delve into web development practices and explore the intricacies of the UEFA Champions League draw system. It serves as a testament to combining functional logic with compelling user interface design.
+---
+
+## 🛠 Technologies Used
+
+- **HTML5** – Semantic web structure  
+- **CSS3** – Responsive design, animations, and modern UI effects  
+- **JavaScript (ES6+)** – Core simulation logic and dynamic content rendering  
+
+---
+
+## 👨‍💻 About the Developer
+
+This simulator was developed by **Kerem Tokgöz**, a computer engineer passionate about football analytics and user-centric design. The project explores the technical and visual challenges of building a **Champions League Swiss model simulation tool**, combining **real-world rules** with modern web development practices.
+
+> This project is not affiliated with or endorsed by UEFA. It is an independent simulation created for educational and portfolio purposes.
+
+---
+
+## 🔍 Keywords
+
+`UEFA Champions League draw simulator` • `Swiss model Champions League format` • `Champions League 2025/26 draw` • `interactive football draw` • `football web app project` • `UEFA simulation tool` • `JavaScript football simulation` • `Champions League UI design`
+
+---
